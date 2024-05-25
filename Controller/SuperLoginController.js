@@ -53,6 +53,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({
       email: user.email,
       superToken: token,
+      expired: user.expired,
     });
   } catch (error) {
     res.status(500).json({ error: "Login failed Refresh and try agian !!" });

@@ -9,6 +9,7 @@ const TLoginSchema = new mongoose.Schema({
   status: { type: Boolean },
   user: { type: String, required: true },
   auth: { type: Boolean },
+  expired: { type: Date,required:true },
 });
 
 const TLogin = mongoose.model("tlogin", TLoginSchema);

@@ -39,6 +39,7 @@ const ClassRoute = require("./Routes/ClassRoutes");
 const TemplateRoute = require("./Routes/TemplateRoute");
 const sectionRoute = require("./Routes/SectionRoutes");
 const partyRoute = require("./Routes/PartyRoutes");
+const ExpiredMiddleware = require("./Routes/ExpiredRoutes");
 // Teacher login
 app.use("/school/auth", AuthRoute);
 // on admin create register login forget password
@@ -47,7 +48,7 @@ app.use("/school/teacherauth", TLoginAuthRoute);
 app.use("/school/adminauth", AdminAuthRoute);
 // third party auth
 app.use("/school/partyauth", partyRoute);
-
+app.use("/school/verifyexpire", ExpiredMiddleware);
 
 app.use("/school/superauth", SuperAdminAuthRoute);
 app.use("/school/verfytoken", verfyToken);

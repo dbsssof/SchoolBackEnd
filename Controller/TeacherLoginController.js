@@ -54,6 +54,7 @@ exports.login = async (req, res) => {
       teach: user.user,
       email: user.email,
       status: user.status,
+      expired: user.expired,
     });
   } catch (error) {
     res.status(500).json({ error: "Login failed Refresh and try agian !!" });

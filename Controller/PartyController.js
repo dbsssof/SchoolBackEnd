@@ -54,7 +54,8 @@ exports.login = async (req, res) => {
       schoolid: user.schoolid,
       email: user.email,
       partyToken: token,
-      status:user.status
+      status:user.status,
+      expired: user.expired,
     });
   } catch (error) {
     res.status(500).json({ error: "Login failed Refresh and try agian !!" });

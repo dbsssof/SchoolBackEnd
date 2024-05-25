@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
 };
 
 // Admin Login
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const { email, pass } = req.body;
   try {
     const user = await Model.findOne({ email });
@@ -55,16 +55,18 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ email: user.email }, Key, {
       expiresIn: "1d",
     });
-    return res.status(200).json({
+    res.status(200).json({
       schoolid: user.schoolid,
       email: user.email,
       adminToken: token,
+      expired: user.expired,
     });
   } catch (error) {
     res.status(500).json({ error: "Login failed Refresh and try agian !!" });
   }
 };
 
+// find admin
 exports.findloger = async (req, res) => {
   const { id } = req.params;
   try {
