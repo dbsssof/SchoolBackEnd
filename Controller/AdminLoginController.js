@@ -27,8 +27,9 @@ exports.register = async (req, res) => {
       status: data.status,
       auth: data.auth,
       schoolid: data.schoolid,
+      expired: data.expired,
+      startexpired: startexpired,
     });
-    const inserted = await Model.create(user);
     return res.status(200).json({ message: "Register Successfully" });
   } catch (error) {
     console.error(error);
@@ -39,12 +40,15 @@ exports.register = async (req, res) => {
 };
 
 // Admin Login
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   const { email, pass } = req.body;
   try {
     const user = await Model.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "User Not found !" });
+    }
+    if (user.status === false) {
+      return res.status(401).json({ error: "Access Denied" });
     }
     const passwordMatch = await bcrypt.compare(pass, user.pass);
 
@@ -96,12 +100,16 @@ exports.forgetPassword = async (req, res) => {
         ogpass: newpass,
         pass: newHashPassword,
         status: datas.status,
+        expired: data.expired,
+        startexpired: data.startexpired,
       });
 
       return res.status(200).json({ message: "Update Detailss", data: data });
     } else {
       const newd = await Model.findByIdAndUpdate(user._id, {
         status: data.status,
+        expired: data.expired,
+        startexpired: data.startexpired,
       });
 
       return res.status(200).json({ message: "Update Details", data: newd });

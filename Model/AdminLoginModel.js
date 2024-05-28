@@ -7,6 +7,7 @@ const TLoginSchema = new mongoose.Schema({
   status: { type: Boolean },
   schoolid: { type: String, required: true },
   auth: { type: Boolean },
+  startexpired: { type: String,required:true },
   expired: { type: String,required:true },
 });
 
