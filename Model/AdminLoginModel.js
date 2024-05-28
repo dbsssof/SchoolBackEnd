@@ -7,10 +7,11 @@ const TLoginSchema = new mongoose.Schema({
   status: { type: Boolean },
   schoolid: { type: String, required: true },
   auth: { type: Boolean },
-  startexpired: { type: String,required:true },
-  expired: { type: String,required:true },
+  startexpired: { type: String },
+  expired: { type: String },
 });
 
 const TLogin = mongoose.model("alogin", TLoginSchema);
 
 module.exports = TLogin;
+``;

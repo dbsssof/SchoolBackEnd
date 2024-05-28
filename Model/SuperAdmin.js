@@ -5,7 +5,7 @@ const TLoginSchema = new mongoose.Schema({
   pass: { type: String, required: true },
   status: { type: Boolean },
   auth: { type: Boolean },
-  expired: { type: Date,required:true },
+  expired: { type: Date },
 });
 
 const TLogin = mongoose.model("superlogin", TLoginSchema);

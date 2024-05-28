@@ -7,7 +7,7 @@ const partySchema = new mongoose.Schema({
   schoolid: { type: String },
   status: { type: Boolean, default: false },
   auth: { type: Boolean, default: false },
-  expired: { type: Date,required:true },
+  expired: { type: Date },
 });
 
 const party = mongoose.model("partylogin", partySchema);
