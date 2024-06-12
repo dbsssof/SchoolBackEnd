@@ -11,10 +11,14 @@ app.use(bodyParser.json({ limit: "10mb" }));
 
 // Adjust the limit for URL-encoded requests
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(bodyParser.json()); 
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.HOST_API, // Adjust this to your specific needs
+  methods: 'GET, POST, PUT, DELETE, OPTIONS',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+}));
 
-app.use(bodyParser.json());
 
 const mongoUrl = process.env.DB_URL;
 
