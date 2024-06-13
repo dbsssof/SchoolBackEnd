@@ -13,12 +13,13 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(bodyParser.json()); 
 
-app.use(cors({
-  origin: "*", // Adjust this to your specific needs
-  methods: 'GET, POST, PUT, DELETE, OPTIONS',
-  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-}));
+// app.use(cors({
+//   origin: "*", // Adjust this to your specific needs
+//   methods: 'GET, POST, PUT, DELETE, OPTIONS',
+//   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+// }));
 
+app.use(cors());
 
 const mongoUrl = process.env.DB_URL;
 
