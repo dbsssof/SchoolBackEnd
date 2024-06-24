@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
   try {
     const data = Model(req.body);
     const foundUser = await Model.findOne({
-      email: data.email,    
+      email: data.email,
     });
     if (foundUser) {
       return res
@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
       auth: true,
       schoolid: data.schoolid,
       expired: data.expired,
-    //  startexpired: startexpired,
+      // startexpired: startexpired,
     });
     await Model.create(user);
     return res.status(200).json({ message: "Register Successfully" });
@@ -73,6 +73,7 @@ exports.login = async (req, res) => {
 exports.findloger = async (req, res) => {
   const { id } = req.params;
   try {
+    console.log(id);
     const user = await Model.findOne({ schoolid: id });
 
     if (!user) {
@@ -87,24 +88,24 @@ exports.findloger = async (req, res) => {
 // change password  email
 exports.forgetPassword = async (req, res) => {
   const data = Model(req.body);
-  const { newpass } = req.body;
   const user = await Model.findOne({ email: data.email });
+  const { newpass } = req.body;
   try {
     if (newpass) {
-      const datas = req.body;
-
       const newHashPassword = await bcrypt.hash(newpass, 10);
-      const data = await Model.findByIdAndUpdate(user._id, {
-        email: datas.email,
+      const newData = await Model.findByIdAndUpdate(user._id, {
+        email: data.email,
         ogpass: newpass,
         pass: newHashPassword,
-        status: datas.status,
+        status: data.status,
         expired: data.expired,
-        startexpired: data.startexpired,
+        // startexpired: data.startexpired,
       });
 
-      return res.status(200).json({ message: "Update Detailss", data: data });
-    } else {
+      console.log("updateData", newData);
+      return res.status(200).json({ message: "Update Detail", data: newData });
+    }
+    if (!newpass) {
       const newd = await Model.findByIdAndUpdate(user._id, {
         status: data.status,
         expired: data.expired,
