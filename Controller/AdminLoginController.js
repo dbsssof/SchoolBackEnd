@@ -8,9 +8,7 @@ exports.register = async (req, res) => {
   try {
     const data = Model(req.body);
     const foundUser = await Model.findOne({
-      email: data.email,
-      name: data.name,
-      lastnm: data.lastnm,
+      email: data.email,    
     });
     if (foundUser) {
       return res
@@ -25,11 +23,12 @@ exports.register = async (req, res) => {
       ogpass: data.pass,
       pass: hashedPassword,
       status: data.status,
-      auth: data.auth,
+      auth: true,
       schoolid: data.schoolid,
       expired: data.expired,
-      startexpired: startexpired,
+      // startexpired: startexpired,
     });
+    await Model.create(user);
     return res.status(200).json({ message: "Register Successfully" });
   } catch (error) {
     console.error(error);

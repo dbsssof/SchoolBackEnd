@@ -12,6 +12,7 @@ exports.getStudentBySchool = async (req, res) => {
       .json({ message: "Internal Server Error, Refresh and try again !" });
   }
 };
+
 // get student by class section school for teacher portal
 exports.getStudentByClassSectionSchool = async (req, res) => {
   try {
@@ -30,6 +31,7 @@ exports.getStudentByClassSectionSchool = async (req, res) => {
       .json({ message: "Internal Server Error, Refresh and try again !" });
   }
 };
+
 // create students for admin
 exports.Create = async (req, res) => {
   try {
@@ -42,10 +44,10 @@ exports.Create = async (req, res) => {
       .json({ message: "Internal Server Error, Refresh and try again !" });
   }
 };
+
 // create many students via excel for admin / teacher
 exports.InsertMany = async (req, res) => {
   const datas = [];
-  console.log(req.body);
   try {
     const dataArray = req.body; // Assuming req.body contains an array of documents
     for (let index = 0; index < dataArray.length; index++) {
@@ -70,7 +72,10 @@ exports.UpdateMany = async (req, res) => {
   try {
     const dataArray = req.body; // Assuming req.body contains an array of documents
     for (let index = 0; index < dataArray.length; index++) {
-      await Model.findOneAndUpdate({_id :dataArray[index]._id},dataArray[index]);
+      await Model.findOneAndUpdate(
+        { _id: dataArray[index]._id },
+        dataArray[index]
+      );
       datas.push(dataArray[index]);
     }
 
@@ -85,6 +90,28 @@ exports.UpdateMany = async (req, res) => {
       .json({ message: "Internal Server Error, Refresh and try again!" });
   }
 };
+
+exports.UpdatePrintStatusMany = async (req, res) => {
+  const datas = [];
+  try {
+    const dataArray = req.body; // Assuming req.body contains an array of documents
+    for (let index = 0; index < dataArray.length; index++) {
+      await Model.findOneAndUpdate(
+        { _id: dataArray[index]._id },
+        { print: true }
+      );
+      datas.push(dataArray[index]);
+    }
+    // const find = await Model.insertMany(datas);
+    return res.status(200).json({ message: "Print Successfully", data: datas });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal Server Error, Refresh and try again!" });
+  }
+};
+
 // update students for admin
 exports.Update = async (req, res) => {
   const data = Model(req.body);
@@ -102,6 +129,7 @@ exports.Update = async (req, res) => {
       .json({ message: "Internal Server Error, Refresh and try again !" });
   }
 };
+
 // no use for now
 exports.Delete = async (req, res) => {
   const { id, school } = req.params;
