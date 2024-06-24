@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
       auth: true,
       schoolid: data.schoolid,
       expired: data.expired,
-      // startexpired: startexpired,
+    //  startexpired: startexpired,
     });
     await Model.create(user);
     return res.status(200).json({ message: "Register Successfully" });
