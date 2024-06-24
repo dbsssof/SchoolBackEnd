@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
       auth: data.auth,
       schoolid: data.schoolid,
       expired: data.expired,
-      startexpired: startexpired,
+    //  startexpired: startexpired,
     });
     return res.status(200).json({ message: "Register Successfully" });
   } catch (error) {
